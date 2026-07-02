@@ -70,7 +70,8 @@ function ResultsList() {
 
   if (results.length === 0) {
     return (
-      <Box
+      <Paper
+        elevation={3}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -82,14 +83,14 @@ function ResultsList() {
       >
         <Typography variant="body1">No flights match your search.</Typography>
         {newSearchButton}
-      </Box>
+      </Paper>
     )
   }
 
   return (
     <Box>
       <Box sx={{ mb: 2 }}>{newSearchButton}</Box>
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
             <TableRow>

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import Box from '@mui/material/Box'
+import { useRef, useState } from 'react'
+import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
@@ -9,6 +9,9 @@ import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
 import Button from '@mui/material/Button'
 import CircularProgress from '@mui/material/CircularProgress'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
 import { useDispatch } from 'react-redux'
 import { useGetAirportsQuery, useSearchFlightsMutation } from '../api/skyRouteApi'
 import { showSnackbar } from '../ui/uiSlice'
@@ -29,6 +32,7 @@ function SearchForm() {
   const [departureDate, setDepartureDate] = useState('')
   const [passengers, setPassengers] = useState(1)
   const [cabinClass, setCabinClass] = useState(CABIN_CLASSES[0])
+  const departureDateInputRef = useRef<HTMLInputElement>(null)
 
   const sameAirportError =
     originCode !== '' && destinationCode !== '' && originCode === destinationCode
@@ -60,7 +64,7 @@ function SearchForm() {
   }
 
   return (
-    <Box sx={{ maxWidth: 800 }}>
+    <Paper elevation={3} sx={{ maxWidth: 800, p: 3 }}>
       <Grid container spacing={2}>
         <Grid size={{ xs: 12, sm: 6 }}>
           <FormControl fullWidth>
@@ -107,7 +111,24 @@ function SearchForm() {
             type="date"
             fullWidth
             required
-            slotProps={{ inputLabel: { shrink: true }, htmlInput: { min: todayIsoDate() } }}
+            inputRef={departureDateInputRef}
+            slotProps={{
+              inputLabel: { shrink: true },
+              htmlInput: { min: todayIsoDate() },
+              input: {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="Open date picker"
+                      edge="end"
+                      onClick={() => departureDateInputRef.current?.showPicker?.()}
+                    >
+                      <CalendarMonthIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              },
+            }}
             value={departureDate}
             onChange={(e) => setDepartureDate(e.target.value)}
           />
@@ -153,7 +174,7 @@ function SearchForm() {
           </Button>
         </Grid>
       </Grid>
-    </Box>
+    </Paper>
   )
 }
 

@@ -1,23 +1,33 @@
 import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
+import SearchIcon from '@mui/icons-material/Search'
+import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff'
+import PersonIcon from '@mui/icons-material/Person'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import { useSelector } from 'react-redux'
 import type { RootState } from '../../app/store'
 import SearchForm from './SearchForm'
 import ResultsList from './ResultsList'
 
-const steps = ['Search', 'Select Flight', 'Passenger Details', 'Confirmation']
+const steps = [
+  { label: 'Search', icon: SearchIcon },
+  { label: 'Select Flight', icon: FlightTakeoffIcon },
+  { label: 'Passenger Details', icon: PersonIcon },
+  { label: 'Confirmation', icon: CheckCircleIcon },
+]
 
 function BookingStepper() {
   const activeStep = useSelector((state: RootState) => state.bookingFlow.activeStep)
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Container maxWidth="md" sx={{ py: 4 }}>
       <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
-        {steps.map((label) => (
+        {steps.map(({ label, icon: Icon }) => (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel icon={<Icon color="inherit" />}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>
@@ -26,7 +36,7 @@ function BookingStepper() {
       {activeStep === 1 && <ResultsList />}
       {activeStep === 2 && <Box>{/* Passenger Details - built in the next batch */}</Box>}
       {activeStep === 3 && <Box>{/* Confirmation - built in the next batch */}</Box>}
-    </Box>
+    </Container>
   )
 }
 
