@@ -64,6 +64,8 @@ _(filled in as each piece is built — see DEVLOG.md for the running commentary)
   `Confirmed`. With more time, I'd add `Cancelled` and the associated flow.
 - **Code review automation covers GitHub Copilot PR review only** (not a
   custom AI review agent) — a deliberate scope cut given the deadline.
+- See REFLECTIONS.md for the full reasoning behind these and other deliberate
+  deviations from the brief.
 
 ## AI-assisted development
 
