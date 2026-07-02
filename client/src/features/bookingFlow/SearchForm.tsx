@@ -12,9 +12,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import type { RootState } from '../../app/store'
 import { useGetAirportsQuery, useSearchFlightsMutation } from '../api/skyRouteApi'
 import { showSnackbar } from '../ui/uiSlice'
+import { setLastSearchCriteria } from './bookingFlowSlice'
 
 const CABIN_CLASSES = ['Economy', 'Business', 'First']
 
@@ -26,12 +28,17 @@ function SearchForm() {
   const dispatch = useDispatch()
   const { data: airports = [] } = useGetAirportsQuery()
   const [searchFlights, { isLoading }] = useSearchFlightsMutation()
+  const lastSearchCriteria = useSelector(
+    (state: RootState) => state.bookingFlow.lastSearchCriteria,
+  )
 
-  const [originCode, setOriginCode] = useState('')
-  const [destinationCode, setDestinationCode] = useState('')
-  const [departureDate, setDepartureDate] = useState('')
-  const [passengers, setPassengers] = useState(1)
-  const [cabinClass, setCabinClass] = useState(CABIN_CLASSES[0])
+  const [originCode, setOriginCode] = useState(lastSearchCriteria?.originCode ?? '')
+  const [destinationCode, setDestinationCode] = useState(
+    lastSearchCriteria?.destinationCode ?? '',
+  )
+  const [departureDate, setDepartureDate] = useState(lastSearchCriteria?.departureDate ?? '')
+  const [passengers, setPassengers] = useState(lastSearchCriteria?.passengers ?? 1)
+  const [cabinClass, setCabinClass] = useState(lastSearchCriteria?.cabinClass ?? CABIN_CLASSES[0])
   const departureDateInputRef = useRef<HTMLInputElement>(null)
 
   const sameAirportError =
@@ -45,14 +52,18 @@ function SearchForm() {
       return
     }
 
+    const criteria = {
+      originCode,
+      destinationCode,
+      departureDate,
+      passengers,
+      cabinClass,
+    }
+
+    dispatch(setLastSearchCriteria(criteria))
+
     try {
-      await searchFlights({
-        originCode,
-        destinationCode,
-        departureDate,
-        passengers,
-        cabinClass,
-      }).unwrap()
+      await searchFlights(criteria).unwrap()
     } catch {
       dispatch(
         showSnackbar({

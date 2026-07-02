@@ -10,10 +10,11 @@ import TableCell from '@mui/material/TableCell'
 import TableContainer from '@mui/material/TableContainer'
 import TableSortLabel from '@mui/material/TableSortLabel'
 import Paper from '@mui/material/Paper'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'
 import { useDispatch, useSelector } from 'react-redux'
 import type { RootState } from '../../app/store'
 import type { FlightOffer } from '../../shared/types'
-import { resetFlow, selectFlight } from './bookingFlowSlice'
+import { resetFlow, selectFlight, setActiveStep } from './bookingFlowSlice'
 import { showSnackbar } from '../ui/uiSlice'
 
 type SortKey = 'provider' | 'departureTime' | 'durationMinutes' | 'totalPrice'
@@ -68,6 +69,16 @@ function ResultsList() {
     </Button>
   )
 
+  const backButton = (
+    <Button
+      variant="text"
+      startIcon={<ArrowBackIcon />}
+      onClick={() => dispatch(setActiveStep(0))}
+    >
+      Back
+    </Button>
+  )
+
   if (results.length === 0) {
     return (
       <Paper
@@ -82,14 +93,20 @@ function ResultsList() {
         }}
       >
         <Typography variant="body1">No flights match your search.</Typography>
-        {newSearchButton}
+        <Box sx={{ display: 'flex', gap: 1 }}>
+          {backButton}
+          {newSearchButton}
+        </Box>
       </Paper>
     )
   }
 
   return (
     <Box>
-      <Box sx={{ mb: 2 }}>{newSearchButton}</Box>
+      <Box sx={{ mb: 2, display: 'flex', gap: 1 }}>
+        {backButton}
+        {newSearchButton}
+      </Box>
       <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
