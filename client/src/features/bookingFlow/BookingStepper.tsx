@@ -1,4 +1,3 @@
-import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
@@ -11,6 +10,8 @@ import { useSelector } from 'react-redux'
 import type { RootState } from '../../app/store'
 import SearchForm from './SearchForm'
 import ResultsList from './ResultsList'
+import PassengerDetailsForm from './PassengerDetailsForm'
+import ConfirmationDialog from './ConfirmationDialog'
 
 const steps = [
   { label: 'Search', icon: SearchIcon },
@@ -21,6 +22,9 @@ const steps = [
 
 function BookingStepper() {
   const activeStep = useSelector((state: RootState) => state.bookingFlow.activeStep)
+  const selectedFlightId = useSelector(
+    (state: RootState) => state.bookingFlow.selectedFlightId,
+  )
 
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
@@ -34,8 +38,9 @@ function BookingStepper() {
 
       {activeStep === 0 && <SearchForm />}
       {activeStep === 1 && <ResultsList />}
-      {activeStep === 2 && <Box>{/* Passenger Details - built in the next batch */}</Box>}
-      {activeStep === 3 && <Box>{/* Confirmation - built in the next batch */}</Box>}
+      {activeStep === 2 && <PassengerDetailsForm key={selectedFlightId} />}
+
+      <ConfirmationDialog />
     </Container>
   )
 }
