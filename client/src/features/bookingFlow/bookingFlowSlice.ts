@@ -1,6 +1,7 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
 import { skyRouteApi } from '../api/skyRouteApi'
 import type { FlightOffer, PassengerInput } from '../../shared/types'
+import type { RootState } from '../../app/store'
 
 interface BookingFlowState {
   activeStep: number
@@ -59,5 +60,10 @@ const bookingFlowSlice = createSlice({
 
 export const { setActiveStep, selectFlight, setPassengers, resetFlow } =
   bookingFlowSlice.actions
+
+export const selectSelectedFlightOffer = (state: RootState): FlightOffer | undefined =>
+  state.bookingFlow.results.find(
+    (offer) => offer.flightId === state.bookingFlow.selectedFlightId,
+  )
 
 export default bookingFlowSlice.reducer
