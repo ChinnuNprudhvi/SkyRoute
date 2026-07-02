@@ -1,4 +1,5 @@
 using FluentValidation;
+using Serilog;
 using SkyRoute.Api.Middleware;
 using SkyRoute.Application.Interfaces;
 using SkyRoute.Application.Models;
@@ -9,6 +10,14 @@ using SkyRoute.Infrastructure;
 const string ClientCorsPolicy = "ClientCorsPolicy";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, services, configuration) => configuration
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File(
+        path: "logs/skyroute-.log",
+        rollingInterval: RollingInterval.Day,
+        outputTemplate: "[{Timestamp:yyyy-MM-dd HH:mm:ss} {Level:u3}] {Message:lj} {Properties:j}{NewLine}"));
 
 builder.Services.AddSkyRouteInfrastructure();
 
@@ -37,6 +46,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<CorrelationIdMiddleware>();
+
+app.UseSerilogRequestLogging();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
