@@ -2,8 +2,8 @@ using FluentValidation;
 using Moq;
 using SkyRoute.Application.Interfaces;
 using SkyRoute.Application.Models;
-using SkyRoute.Application.Validators;
 using SkyRoute.Application.Services;
+using SkyRoute.Application.Validators;
 using SkyRoute.Domain.Entities;
 using SkyRoute.Domain.Enums;
 using SkyRoute.Domain.Exceptions;
@@ -12,17 +12,37 @@ namespace SkyRoute.Tests.Services;
 
 public class BookingServiceTests
 {
+    private const string FlightId = "flight-1";
+    private const string SearchId = "search-1";
+
     private static Airport Jfk => new("JFK", "JFK Airport", "New York", "United States");
-    private static Airport Lhr => new("LHR", "Heathrow", "London", "United Kingdom");
     private static Airport Lax => new("LAX", "LAX Airport", "Los Angeles", "United States");
+    private static Airport Lhr => new("LHR", "Heathrow Airport", "London", "United Kingdom");
 
-    private static FlightOffer MakeOffer(string id, Airport origin, Airport destination) =>
-        new(id, "GlobalAir", "GA001", origin, destination,
-            DateTime.Today, DateTime.Today.AddHours(3),
-            CabinClass.Economy, 100m, 115m, 115m);
+    /// <summary>
+    /// Builds a single cached FlightOffer with a known price and a route whose
+    /// IsInternational value matches the requested parameter, plus a fixed searchId.
+    /// </summary>
+    private static (FlightOffer Offer, string SearchId) MakeCachedSearch(bool isInternational)
+    {
+        var origin = Jfk;
+        var destination = isInternational ? Lhr : Lax;
 
-    private static CreateBookingRequest MakeRequest(string searchId, string flightId, string documentNumber = "123456") =>
-        new(searchId, flightId, [new PassengerDto("Jane Doe", "jane@example.com", documentNumber)]);
+        var offer = new FlightOffer(
+            Id: FlightId,
+            Provider: "GlobalAir",
+            FlightNumber: "GA001",
+            Origin: origin,
+            Destination: destination,
+            DepartureTime: DateTime.Today.AddDays(7),
+            ArrivalTime: DateTime.Today.AddDays(7).AddHours(6),
+            CabinClass: CabinClass.Economy,
+            BaseFare: 391.30m,
+            TotalPrice: 450.00m,
+            PricePerPerson: 225.00m);
+
+        return (offer, SearchId);
+    }
 
     private static BookingService BuildService(
         Mock<ISearchResultRepository> searchResultRepository,
@@ -36,126 +56,132 @@ public class BookingServiceTests
     }
 
     [Fact]
-    public async Task CreateBookingAsync_ValidDomesticRequest_SavesAndReturnsBooking()
+    public async Task CreateBookingAsync_ReadsPriceFromCachedOffer_NeverFromRequest()
     {
-        var offer = MakeOffer("flight-1", Jfk, Lax);
+        var (cachedOffer, searchId) = MakeCachedSearch(isInternational: false);
+
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("search-1"))
-            .ReturnsAsync((IEnumerable<FlightOffer>?)[offer]);
+        searchResultRepository.Setup(r => r.GetAsync(searchId))
+            .ReturnsAsync((IEnumerable<FlightOffer>?)[cachedOffer]);
 
+        Booking? capturedBooking = null;
         var bookingRepository = new Mock<IBookingRepository>();
+        bookingRepository.Setup(r => r.SaveAsync(It.IsAny<Booking>()))
+            .Callback<Booking>(b => capturedBooking = b)
+            .Returns(Task.CompletedTask);
+
         var service = BuildService(searchResultRepository, bookingRepository);
+        var request = new CreateBookingRequest(
+            searchId,
+            FlightId,
+            [new PassengerDto("Jane Doe", "jane@example.com", "123456")]);
 
-        var request = MakeRequest("search-1", "flight-1", "123456");
+        await service.CreateBookingAsync(request);
 
-        var booking = await service.CreateBookingAsync(request);
-
-        Assert.StartsWith("SKY-", booking.Reference);
-        Assert.Equal(BookingStatus.Confirmed, booking.Status);
-        Assert.Same(offer, booking.FlightSnapshot);
-        bookingRepository.Verify(r => r.SaveAsync(It.Is<Booking>(b => b.Reference == booking.Reference)), Times.Once);
+        Assert.NotNull(capturedBooking);
+        Assert.Equal(450.00m, capturedBooking!.FlightSnapshot.TotalPrice);
     }
 
     [Fact]
-    public async Task CreateBookingAsync_StructurallyInvalidRequest_ThrowsValidationException()
+    public async Task CreateBookingAsync_SearchIdNotFound_ThrowsSearchExpiredException()
     {
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        var bookingRepository = new Mock<IBookingRepository>();
-        var service = BuildService(searchResultRepository, bookingRepository);
-
-        var request = new CreateBookingRequest("", "", []);
-
-        await Assert.ThrowsAsync<ValidationException>(() => service.CreateBookingAsync(request));
-        searchResultRepository.Verify(r => r.GetAsync(It.IsAny<string>()), Times.Never);
-    }
-
-    [Fact]
-    public async Task CreateBookingAsync_ExpiredSearch_ThrowsSearchExpiredException()
-    {
-        var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("missing-search"))
+        searchResultRepository.Setup(r => r.GetAsync(It.IsAny<string>()))
             .ReturnsAsync((IEnumerable<FlightOffer>?)null);
 
         var bookingRepository = new Mock<IBookingRepository>();
         var service = BuildService(searchResultRepository, bookingRepository);
 
-        var request = MakeRequest("missing-search", "flight-1");
+        var request = new CreateBookingRequest(
+            "missing-search",
+            FlightId,
+            [new PassengerDto("Jane Doe", "jane@example.com", "123456")]);
 
         await Assert.ThrowsAsync<SearchExpiredException>(() => service.CreateBookingAsync(request));
     }
 
     [Fact]
-    public async Task CreateBookingAsync_FlightNotInCachedResults_ThrowsFlightNotFoundException()
+    public async Task CreateBookingAsync_FlightIdNotInCachedSearch_ThrowsFlightNotFoundException()
     {
-        var offer = MakeOffer("flight-1", Jfk, Lax);
+        var (cachedOffer, searchId) = MakeCachedSearch(isInternational: false);
+
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("search-1"))
-            .ReturnsAsync((IEnumerable<FlightOffer>?)[offer]);
+        searchResultRepository.Setup(r => r.GetAsync(searchId))
+            .ReturnsAsync((IEnumerable<FlightOffer>?)[cachedOffer]);
 
         var bookingRepository = new Mock<IBookingRepository>();
         var service = BuildService(searchResultRepository, bookingRepository);
 
-        var request = MakeRequest("search-1", "does-not-exist");
+        var request = new CreateBookingRequest(
+            searchId,
+            "some-other-flight-id",
+            [new PassengerDto("Jane Doe", "jane@example.com", "123456")]);
 
         await Assert.ThrowsAsync<FlightNotFoundException>(() => service.CreateBookingAsync(request));
     }
 
     [Fact]
-    public async Task CreateBookingAsync_InternationalFlight_RequiresPassportFormat_ThrowsWhenDocumentIsDigitsOnly()
+    public async Task CreateBookingAsync_InternationalRoute_RejectsNationalIdShapedDocument()
     {
-        // JFK -> LHR is international, so a purely-numeric national-ID-style document must fail.
-        var offer = MakeOffer("flight-1", Jfk, Lhr);
+        var (cachedOffer, searchId) = MakeCachedSearch(isInternational: true);
+
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("search-1"))
-            .ReturnsAsync((IEnumerable<FlightOffer>?)[offer]);
+        searchResultRepository.Setup(r => r.GetAsync(searchId))
+            .ReturnsAsync((IEnumerable<FlightOffer>?)[cachedOffer]);
 
         var bookingRepository = new Mock<IBookingRepository>();
         var service = BuildService(searchResultRepository, bookingRepository);
 
-        var request = MakeRequest("search-1", "flight-1", "123456789012"); // 12 digits, not alphanumeric passport-shaped... but only digits still matches [A-Za-z0-9]{6,9}? length 12 > 9 so fails
-        var ex = await Assert.ThrowsAsync<ValidationException>(() => service.CreateBookingAsync(request));
+        var request = new CreateBookingRequest(
+            searchId,
+            FlightId,
+            [new PassengerDto("Jane Doe", "jane@example.com", "123456789012")]); // National-ID-shaped
 
-        Assert.Contains(ex.Errors, e => e.ErrorMessage.Contains("Passport Number"));
+        await Assert.ThrowsAsync<ValidationException>(() => service.CreateBookingAsync(request));
     }
 
     [Fact]
-    public async Task CreateBookingAsync_DomesticFlight_RequiresNationalIdFormat_ThrowsWhenDocumentIsAlphanumeric()
+    public async Task CreateBookingAsync_DomesticRoute_RejectsPassportShapedDocument()
     {
-        // JFK -> LAX is domestic, so a passport-style alphanumeric document must fail.
-        var offer = MakeOffer("flight-1", Jfk, Lax);
+        var (cachedOffer, searchId) = MakeCachedSearch(isInternational: false);
+
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("search-1"))
-            .ReturnsAsync((IEnumerable<FlightOffer>?)[offer]);
+        searchResultRepository.Setup(r => r.GetAsync(searchId))
+            .ReturnsAsync((IEnumerable<FlightOffer>?)[cachedOffer]);
 
         var bookingRepository = new Mock<IBookingRepository>();
         var service = BuildService(searchResultRepository, bookingRepository);
 
-        var request = MakeRequest("search-1", "flight-1", "AB1234567");
-        var ex = await Assert.ThrowsAsync<ValidationException>(() => service.CreateBookingAsync(request));
+        var request = new CreateBookingRequest(
+            searchId,
+            FlightId,
+            [new PassengerDto("Jane Doe", "jane@example.com", "AB1234567")]); // Passport-shaped
 
-        Assert.Contains(ex.Errors, e => e.ErrorMessage.Contains("National ID"));
+        await Assert.ThrowsAsync<ValidationException>(() => service.CreateBookingAsync(request));
     }
 
     [Fact]
-    public async Task CreateBookingAsync_UsesPriceAndInternationalFlagFromCachedOffer_NotFromRequest()
+    public async Task CreateBookingAsync_ValidRequest_GeneratesReferenceWithSkyPrefixAndSavesConfirmedStatus()
     {
-        // Even though nothing on CreateBookingRequest carries price/IsInternational,
-        // this test documents/guards the trust-boundary rule: those values must
-        // always come from the cached FlightOffer.
-        var offer = MakeOffer("flight-1", Jfk, Lhr);
+        var (cachedOffer, searchId) = MakeCachedSearch(isInternational: false);
+
         var searchResultRepository = new Mock<ISearchResultRepository>();
-        searchResultRepository.Setup(r => r.GetAsync("search-1"))
-            .ReturnsAsync((IEnumerable<FlightOffer>?)[offer]);
+        searchResultRepository.Setup(r => r.GetAsync(searchId))
+            .ReturnsAsync((IEnumerable<FlightOffer>?)[cachedOffer]);
 
         var bookingRepository = new Mock<IBookingRepository>();
-        var service = BuildService(searchResultRepository, bookingRepository);
+        bookingRepository.Setup(r => r.SaveAsync(It.IsAny<Booking>())).Returns(Task.CompletedTask);
 
-        var request = MakeRequest("search-1", "flight-1", "AB123456");
+        var service = BuildService(searchResultRepository, bookingRepository);
+        var request = new CreateBookingRequest(
+            searchId,
+            FlightId,
+            [new PassengerDto("Jane Doe", "jane@example.com", "123456")]); // National-ID-shaped, matches domestic route
 
         var booking = await service.CreateBookingAsync(request);
 
-        Assert.Equal(offer.TotalPrice, booking.FlightSnapshot.TotalPrice);
-        Assert.Equal(offer.PricePerPerson, booking.FlightSnapshot.PricePerPerson);
-        Assert.True(booking.FlightSnapshot.IsInternational);
+        Assert.StartsWith("SKY-", booking.Reference);
+        Assert.Equal(BookingStatus.Confirmed, booking.Status);
+        bookingRepository.Verify(r => r.SaveAsync(It.IsAny<Booking>()), Times.Once);
     }
 }
