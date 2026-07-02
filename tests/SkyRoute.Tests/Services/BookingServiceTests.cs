@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
 using SkyRoute.Application.Interfaces;
 using SkyRoute.Application.Models;
@@ -52,7 +53,8 @@ public class BookingServiceTests
             searchResultRepository.Object,
             bookingRepository.Object,
             new CreateBookingRequestValidator(),
-            new PassengerDocumentFormatValidator());
+            new PassengerDocumentFormatValidator(),
+            NullLogger<BookingService>.Instance);
     }
 
     [Fact]

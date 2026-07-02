@@ -39,6 +39,12 @@ public class FlightAggregatorService
 
         var searchId = await _searchResultRepository.SaveAsync(mergedResults, SearchResultTtl);
 
+        _logger.LogInformation(
+            "Flight search completed: {SearchId} {ResultCount} {PartialResults}",
+            searchId,
+            mergedResults.Count,
+            unavailableProviders.Count > 0);
+
         return new FlightSearchResult(searchId, mergedResults, isInternational, unavailableProviders);
     }
 

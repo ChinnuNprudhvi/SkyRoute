@@ -1,5 +1,6 @@
 using FluentValidation;
 using FluentValidation.Results;
+using Microsoft.Extensions.Logging;
 using SkyRoute.Application.Interfaces;
 using SkyRoute.Application.Models;
 using SkyRoute.Application.Validators;
@@ -17,17 +18,20 @@ public class BookingService
     private readonly IBookingRepository _bookingRepository;
     private readonly IValidator<CreateBookingRequest> _createBookingRequestValidator;
     private readonly PassengerDocumentFormatValidator _passengerDocumentFormatValidator;
+    private readonly ILogger<BookingService> _logger;
 
     public BookingService(
         ISearchResultRepository searchResultRepository,
         IBookingRepository bookingRepository,
         IValidator<CreateBookingRequest> createBookingRequestValidator,
-        PassengerDocumentFormatValidator passengerDocumentFormatValidator)
+        PassengerDocumentFormatValidator passengerDocumentFormatValidator,
+        ILogger<BookingService> logger)
     {
         _searchResultRepository = searchResultRepository;
         _bookingRepository = bookingRepository;
         _createBookingRequestValidator = createBookingRequestValidator;
         _passengerDocumentFormatValidator = passengerDocumentFormatValidator;
+        _logger = logger;
     }
 
     public async Task<Booking> CreateBookingAsync(CreateBookingRequest request)
@@ -71,6 +75,12 @@ public class BookingService
             CreatedAt: DateTime.UtcNow);
 
         await _bookingRepository.SaveAsync(booking);
+
+        _logger.LogInformation(
+            "Booking confirmed: {BookingReference} {FlightId} {PassengerCount}",
+            booking.Reference,
+            flightOffer.Id,
+            request.Passengers.Count);
 
         return booking;
     }
