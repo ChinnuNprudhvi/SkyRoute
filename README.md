@@ -7,7 +7,7 @@ end-to-end search-to-booking flow.
 
 ## Stack
 
-- Backend: .NET 8 Web API, layered architecture (Domain / Application /
+- Backend: .NET 10 Web API, layered architecture (Domain / Application /
   Infrastructure / Api)
 - Frontend: React + RTK Query
 - Persistence: in-memory (see Architecture Decisions — no database required for
