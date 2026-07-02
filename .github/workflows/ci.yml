@@ -15,11 +15,11 @@ jobs:
         with:
           dotnet-version: "10.0.x"
       - name: Restore
-        run: dotnet restore SkyRoute.sln
+        run: dotnet restore SkyRoute.slnx
       - name: Build
-        run: dotnet build SkyRoute.sln --no-restore
+        run: dotnet build SkyRoute.slnx --no-restore
       - name: Test
-        run: dotnet test SkyRoute.sln --no-build --verbosity normal
+        run: dotnet test SkyRoute.slnx --no-build --verbosity normal
 
   frontend:
     runs-on: ubuntu-latest
