@@ -26,4 +26,6 @@ public static class AirportSeedData
 
         throw new KeyNotFoundException($"No seed airport data found for code '{code}'.");
     }
+
+    public static IReadOnlyCollection<Airport> GetAll() => Airports.Values.ToList();
 }
