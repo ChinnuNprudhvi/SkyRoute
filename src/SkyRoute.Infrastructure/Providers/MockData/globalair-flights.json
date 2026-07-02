@@ -1,0 +1,486 @@
+[
+  {
+    "flightNo": "GA001",
+    "route": {
+      "from": "JFK",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 1208,
+    "durationMinutes": 346,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA002",
+    "route": {
+      "from": "JFK",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 688,
+    "durationMinutes": 351,
+    "cabin": "Economy",
+    "fare": 105.51
+  },
+  {
+    "flightNo": "GA003",
+    "route": {
+      "from": "JFK",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 138,
+    "durationMinutes": 155,
+    "cabin": "First",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA004",
+    "route": {
+      "from": "JFK",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 73,
+    "durationMinutes": 446,
+    "cabin": "Economy",
+    "fare": 342.58
+  },
+  {
+    "flightNo": "GA005",
+    "route": {
+      "from": "JFK",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1104,
+    "durationMinutes": 854,
+    "cabin": "Economy",
+    "fare": 557.26
+  },
+  {
+    "flightNo": "GA006",
+    "route": {
+      "from": "JFK",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1118,
+    "durationMinutes": 848,
+    "cabin": "Economy",
+    "fare": 89.15
+  },
+  {
+    "flightNo": "GA007",
+    "route": {
+      "from": "JFK",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 968,
+    "durationMinutes": 937,
+    "cabin": "Economy",
+    "fare": 499.59
+  },
+  {
+    "flightNo": "GA008",
+    "route": {
+      "from": "LAX",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 94,
+    "durationMinutes": 343,
+    "cabin": "Economy",
+    "fare": 156.41
+  },
+  {
+    "flightNo": "GA009",
+    "route": {
+      "from": "LAX",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 549,
+    "durationMinutes": 253,
+    "cabin": "Economy",
+    "fare": 473.69
+  },
+  {
+    "flightNo": "GA010",
+    "route": {
+      "from": "LAX",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 642,
+    "durationMinutes": 619,
+    "cabin": "Economy",
+    "fare": 201.91
+  },
+  {
+    "flightNo": "GA011",
+    "route": {
+      "from": "LAX",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 435,
+    "durationMinutes": 600,
+    "cabin": "Economy",
+    "fare": 230.44
+  },
+  {
+    "flightNo": "GA012",
+    "route": {
+      "from": "LAX",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 614,
+    "durationMinutes": 940,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA013",
+    "route": {
+      "from": "LAX",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 445,
+    "durationMinutes": 952,
+    "cabin": "Economy",
+    "fare": 317.69
+  },
+  {
+    "flightNo": "GA014",
+    "route": {
+      "from": "LAX",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 711,
+    "durationMinutes": 965,
+    "cabin": "Economy",
+    "fare": 574.29
+  },
+  {
+    "flightNo": "GA015",
+    "route": {
+      "from": "ORD",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 681,
+    "durationMinutes": 159,
+    "cabin": "Economy",
+    "fare": 194.11
+  },
+  {
+    "flightNo": "GA016",
+    "route": {
+      "from": "ORD",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 438,
+    "durationMinutes": 151,
+    "cabin": "First",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA017",
+    "route": {
+      "from": "ORD",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 721,
+    "durationMinutes": 241,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA018",
+    "route": {
+      "from": "ORD",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 596,
+    "durationMinutes": 483,
+    "cabin": "Economy",
+    "fare": 480.18
+  },
+  {
+    "flightNo": "GA019",
+    "route": {
+      "from": "ORD",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1154,
+    "durationMinutes": 780,
+    "cabin": "Economy",
+    "fare": 445.04
+  },
+  {
+    "flightNo": "GA020",
+    "route": {
+      "from": "ORD",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1028,
+    "durationMinutes": 787,
+    "cabin": "Economy",
+    "fare": 277.14
+  },
+  {
+    "flightNo": "GA021",
+    "route": {
+      "from": "ORD",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 71,
+    "durationMinutes": 856,
+    "cabin": "Economy",
+    "fare": 543.06
+  },
+  {
+    "flightNo": "GA022",
+    "route": {
+      "from": "ORD",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 756,
+    "durationMinutes": 862,
+    "cabin": "First",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA023",
+    "route": {
+      "from": "LHR",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 877,
+    "durationMinutes": 447,
+    "cabin": "Economy",
+    "fare": 506.61
+  },
+  {
+    "flightNo": "GA024",
+    "route": {
+      "from": "LHR",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 405,
+    "durationMinutes": 443,
+    "cabin": "Economy",
+    "fare": 167.3
+  },
+  {
+    "flightNo": "GA025",
+    "route": {
+      "from": "LHR",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 230,
+    "durationMinutes": 604,
+    "cabin": "Economy",
+    "fare": 155.77
+  },
+  {
+    "flightNo": "GA026",
+    "route": {
+      "from": "LHR",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 987,
+    "durationMinutes": 626,
+    "cabin": "Economy",
+    "fare": 277.85
+  },
+  {
+    "flightNo": "GA027",
+    "route": {
+      "from": "LHR",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 235,
+    "durationMinutes": 490,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA028",
+    "route": {
+      "from": "LHR",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1126,
+    "durationMinutes": 529,
+    "cabin": "Economy",
+    "fare": 537.13
+  },
+  {
+    "flightNo": "GA029",
+    "route": {
+      "from": "LHR",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 766,
+    "durationMinutes": 549,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA030",
+    "route": {
+      "from": "LHR",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 87,
+    "durationMinutes": 542,
+    "cabin": "Economy",
+    "fare": 236.54
+  },
+  {
+    "flightNo": "GA031",
+    "route": {
+      "from": "DEL",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 315,
+    "durationMinutes": 865,
+    "cabin": "Economy",
+    "fare": 317.13
+  },
+  {
+    "flightNo": "GA032",
+    "route": {
+      "from": "DEL",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 854,
+    "durationMinutes": 846,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA033",
+    "route": {
+      "from": "DEL",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 1195,
+    "durationMinutes": 906,
+    "cabin": "Business",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA034",
+    "route": {
+      "from": "DEL",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 845,
+    "durationMinutes": 782,
+    "cabin": "First",
+    "fare": 211.16
+  },
+  {
+    "flightNo": "GA035",
+    "route": {
+      "from": "DEL",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 835,
+    "durationMinutes": 786,
+    "cabin": "Economy",
+    "fare": 562.42
+  },
+  {
+    "flightNo": "GA036",
+    "route": {
+      "from": "DEL",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 832,
+    "durationMinutes": 515,
+    "cabin": "Economy",
+    "fare": 402.25
+  },
+  {
+    "flightNo": "GA037",
+    "route": {
+      "from": "DEL",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 332,
+    "durationMinutes": 138,
+    "cabin": "Economy",
+    "fare": 236.49
+  },
+  {
+    "flightNo": "GA038",
+    "route": {
+      "from": "DEL",
+      "to": "BOM"
+    },
+    "departOffsetMinutes": 1231,
+    "durationMinutes": 141,
+    "cabin": "Economy",
+    "fare": 259.81
+  },
+  {
+    "flightNo": "GA039",
+    "route": {
+      "from": "BOM",
+      "to": "JFK"
+    },
+    "departOffsetMinutes": 1010,
+    "durationMinutes": 944,
+    "cabin": "First",
+    "fare": 384.45
+  },
+  {
+    "flightNo": "GA040",
+    "route": {
+      "from": "BOM",
+      "to": "LAX"
+    },
+    "departOffsetMinutes": 335,
+    "durationMinutes": 1019,
+    "cabin": "Economy",
+    "fare": 529.84
+  },
+  {
+    "flightNo": "GA041",
+    "route": {
+      "from": "BOM",
+      "to": "ORD"
+    },
+    "departOffsetMinutes": 149,
+    "durationMinutes": 873,
+    "cabin": "Economy",
+    "fare": 506.47
+  },
+  {
+    "flightNo": "GA042",
+    "route": {
+      "from": "BOM",
+      "to": "LHR"
+    },
+    "departOffsetMinutes": 1068,
+    "durationMinutes": 568,
+    "cabin": "Economy",
+    "fare": 381.14
+  },
+  {
+    "flightNo": "GA043",
+    "route": {
+      "from": "BOM",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 837,
+    "durationMinutes": 148,
+    "cabin": "First",
+    "fare": 600
+  },
+  {
+    "flightNo": "GA044",
+    "route": {
+      "from": "BOM",
+      "to": "DEL"
+    },
+    "departOffsetMinutes": 1170,
+    "durationMinutes": 140,
+    "cabin": "Economy",
+    "fare": 105.09
+  }
+]

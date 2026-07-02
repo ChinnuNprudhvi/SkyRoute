@@ -1,0 +1,362 @@
+[
+  {
+    "flight_number": "BW001",
+    "origin_code": "JFK",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 1317,
+    "duration_minutes": 338,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 429.12
+  },
+  {
+    "flight_number": "BW002",
+    "origin_code": "JFK",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 371,
+    "duration_minutes": 159,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 155.48
+  },
+  {
+    "flight_number": "BW003",
+    "origin_code": "JFK",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 1272,
+    "duration_minutes": 166,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 209.73
+  },
+  {
+    "flight_number": "BW004",
+    "origin_code": "JFK",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 682,
+    "duration_minutes": 431,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 380.19
+  },
+  {
+    "flight_number": "BW005",
+    "origin_code": "JFK",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 860,
+    "duration_minutes": 442,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 523.88
+  },
+  {
+    "flight_number": "BW006",
+    "origin_code": "JFK",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 203,
+    "duration_minutes": 841,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 307.91
+  },
+  {
+    "flight_number": "BW007",
+    "origin_code": "JFK",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 117,
+    "duration_minutes": 937,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 121.51
+  },
+  {
+    "flight_number": "BW008",
+    "origin_code": "JFK",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 1289,
+    "duration_minutes": 954,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 503.37
+  },
+  {
+    "flight_number": "BW009",
+    "origin_code": "LAX",
+    "destination_code": "JFK",
+    "departure_offset_minutes": 1313,
+    "duration_minutes": 346,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 277.45
+  },
+  {
+    "flight_number": "BW010",
+    "origin_code": "LAX",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 225,
+    "duration_minutes": 257,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 355.52
+  },
+  {
+    "flight_number": "BW011",
+    "origin_code": "LAX",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 787,
+    "duration_minutes": 625,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 575.74
+  },
+  {
+    "flight_number": "BW012",
+    "origin_code": "LAX",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 786,
+    "duration_minutes": 618,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 129.91
+  },
+  {
+    "flight_number": "BW013",
+    "origin_code": "LAX",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 452,
+    "duration_minutes": 955,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 344.16
+  },
+  {
+    "flight_number": "BW014",
+    "origin_code": "LAX",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 1235,
+    "duration_minutes": 1017,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 402.98
+  },
+  {
+    "flight_number": "BW015",
+    "origin_code": "ORD",
+    "destination_code": "JFK",
+    "departure_offset_minutes": 380,
+    "duration_minutes": 164,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 540.27
+  },
+  {
+    "flight_number": "BW016",
+    "origin_code": "ORD",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 1240,
+    "duration_minutes": 256,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 96.56
+  },
+  {
+    "flight_number": "BW017",
+    "origin_code": "ORD",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 264,
+    "duration_minutes": 481,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 103.06
+  },
+  {
+    "flight_number": "BW018",
+    "origin_code": "ORD",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 915,
+    "duration_minutes": 797,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 428.94
+  },
+  {
+    "flight_number": "BW019",
+    "origin_code": "ORD",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 412,
+    "duration_minutes": 796,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 491.7
+  },
+  {
+    "flight_number": "BW020",
+    "origin_code": "ORD",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 65,
+    "duration_minutes": 875,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 288.14
+  },
+  {
+    "flight_number": "BW021",
+    "origin_code": "ORD",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 624,
+    "duration_minutes": 841,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 399.2
+  },
+  {
+    "flight_number": "BW022",
+    "origin_code": "LHR",
+    "destination_code": "JFK",
+    "departure_offset_minutes": 931,
+    "duration_minutes": 427,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 164.9
+  },
+  {
+    "flight_number": "BW023",
+    "origin_code": "LHR",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 827,
+    "duration_minutes": 611,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 600
+  },
+  {
+    "flight_number": "BW024",
+    "origin_code": "LHR",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 6,
+    "duration_minutes": 612,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 99.16
+  },
+  {
+    "flight_number": "BW025",
+    "origin_code": "LHR",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 367,
+    "duration_minutes": 481,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 455.27
+  },
+  {
+    "flight_number": "BW026",
+    "origin_code": "LHR",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 136,
+    "duration_minutes": 531,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 528.29
+  },
+  {
+    "flight_number": "BW027",
+    "origin_code": "LHR",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 821,
+    "duration_minutes": 546,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 216.43
+  },
+  {
+    "flight_number": "BW028",
+    "origin_code": "DEL",
+    "destination_code": "JFK",
+    "departure_offset_minutes": 1143,
+    "duration_minutes": 892,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 422.87
+  },
+  {
+    "flight_number": "BW029",
+    "origin_code": "DEL",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 570,
+    "duration_minutes": 940,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 600
+  },
+  {
+    "flight_number": "BW030",
+    "origin_code": "DEL",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 703,
+    "duration_minutes": 807,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 371.95
+  },
+  {
+    "flight_number": "BW031",
+    "origin_code": "DEL",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 1204,
+    "duration_minutes": 532,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 228.11
+  },
+  {
+    "flight_number": "BW032",
+    "origin_code": "DEL",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 237,
+    "duration_minutes": 538,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 225.03
+  },
+  {
+    "flight_number": "BW033",
+    "origin_code": "DEL",
+    "destination_code": "BOM",
+    "departure_offset_minutes": 407,
+    "duration_minutes": 138,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 292.51
+  },
+  {
+    "flight_number": "BW034",
+    "origin_code": "BOM",
+    "destination_code": "JFK",
+    "departure_offset_minutes": 329,
+    "duration_minutes": 917,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 263.58
+  },
+  {
+    "flight_number": "BW035",
+    "origin_code": "BOM",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 782,
+    "duration_minutes": 982,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 310.46
+  },
+  {
+    "flight_number": "BW036",
+    "origin_code": "BOM",
+    "destination_code": "LAX",
+    "departure_offset_minutes": 171,
+    "duration_minutes": 1001,
+    "cabin_class": "BUSINESS",
+    "base_fare_usd": 568.98
+  },
+  {
+    "flight_number": "BW037",
+    "origin_code": "BOM",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 1293,
+    "duration_minutes": 843,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 416.19
+  },
+  {
+    "flight_number": "BW038",
+    "origin_code": "BOM",
+    "destination_code": "ORD",
+    "departure_offset_minutes": 451,
+    "duration_minutes": 864,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 315.49
+  },
+  {
+    "flight_number": "BW039",
+    "origin_code": "BOM",
+    "destination_code": "LHR",
+    "departure_offset_minutes": 984,
+    "duration_minutes": 546,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 407.41
+  },
+  {
+    "flight_number": "BW040",
+    "origin_code": "BOM",
+    "destination_code": "DEL",
+    "departure_offset_minutes": 511,
+    "duration_minutes": 136,
+    "cabin_class": "ECONOMY",
+    "base_fare_usd": 482.1
+  }
+]
