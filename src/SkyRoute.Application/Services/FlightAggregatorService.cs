@@ -32,7 +32,8 @@ public class FlightAggregatorService
 
         var providerResults = await Task.WhenAll(providerTasks);
 
-        var mergedResults = providerResults.SelectMany(offers => offers).ToList();
+        var mergedResults = providerResults.SelectMany(offers => offers)
+            .Where(cbclass => cbclass.CabinClass == criteria.CabinClass).ToList();
 
         var isInternational = mergedResults.Count > 0 &&
             mergedResults[0].Origin.Country != mergedResults[0].Destination.Country;
